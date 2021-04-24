@@ -3,39 +3,49 @@ package com.act.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.act.dao.AuthorRepository;
-import com.act.dao.BookRepository;
-import com.act.entity.Author;
 import com.act.entity.Book;
+import com.act.service.BookService;
+
 
 @RestController
 @RequestMapping("/api")
 public class BookController {
 	
 	@Autowired
-	private BookRepository bookRepository;
+	BookService bookService;
 	
-	@Autowired
-	private AuthorRepository authorRepository;
 	
 	@GetMapping("/books")
 	public List<Book> findAllBooks() {
-		List<Book> myBooks = bookRepository.findAll(); 
-		return myBooks;
+		return bookService.getAllBooks();
 	}
 	
-	@GetMapping("/authors")
-	public List<Author> findAllAuthors() {
-		List<Author> myAuthors = authorRepository.findAll(); 
-		return myAuthors;
+	@GetMapping("/books/{bookId}")
+	public Book findBookById(@PathVariable int bookId) {
+		return bookService.getBookById(bookId);
+	}
+
+	@PostMapping("/books")
+	public Book addBook(@RequestBody Book book) {
+		return bookService.saveNewBook(book);
 	}
 	
-	@GetMapping("/")
-    String index() {
-        return "Hello, World!";
-    }
+	@PutMapping("/books")
+	public Book updateBook(@RequestBody Book book) {
+		return bookService.updateBook(book);
+	}
+	
+	@DeleteMapping("/books/{bookId}")
+	public String deleteBook(@PathVariable int bookId) {
+		return bookService.deleteBook(bookId);
+	}
 }

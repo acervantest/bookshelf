@@ -32,13 +32,11 @@ public class Book {
 		this.author = author;
 	}
 
-	@OneToOne(cascade={ CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.DETACH, CascadeType.REFRESH }, fetch=FetchType.EAGER)
+	@OneToOne(cascade={ CascadeType.MERGE }, fetch=FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH }, fetch=FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.MERGE }, fetch=FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private Author author;
 
