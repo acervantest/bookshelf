@@ -20,7 +20,7 @@ import com.act.service.CategoryService;
 public class CategoryController {
 
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 	
 	@GetMapping("/categories")
 	public List<Category> findAllCategories() {

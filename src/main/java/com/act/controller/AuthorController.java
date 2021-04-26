@@ -20,7 +20,7 @@ import com.act.service.AuthorService;
 public class AuthorController {
 
 	@Autowired
-	AuthorService authorService;
+	private AuthorService authorService;
 	
 	@GetMapping("/authors")
 	public List<Author> findAllAuthors() {	

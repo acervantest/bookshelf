@@ -2,6 +2,7 @@ package com.act.entity;
 
 import javax.persistence.*;
 
+
 @Entity
 public class Book {
 	
@@ -21,6 +22,22 @@ public class Book {
 	@Column(name = "book_rating")
 	private int bookRating;
 	
+	@OneToOne(cascade={ CascadeType.MERGE }, fetch=FetchType.EAGER)
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
+	@ManyToOne(cascade = { CascadeType.MERGE }, fetch=FetchType.EAGER)
+	@JoinColumn(name = "author_id")
+	private Author author;
+	
+	
+	/*@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name="book_record",
+			joinColumns = @JoinColumn(name="book_id"),
+			inverseJoinColumns = @JoinColumn(name="user_id") )
+	private List<User> usersRecordList;*/
+	
 	public Book() { }
 	
 	public Book(String title, String description, int totalPages, int bookRating, Category category, Author author) {
@@ -31,14 +48,6 @@ public class Book {
 		this.category = category;
 		this.author = author;
 	}
-
-	@OneToOne(cascade={ CascadeType.MERGE }, fetch=FetchType.EAGER)
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	@ManyToOne(cascade = { CascadeType.MERGE }, fetch=FetchType.EAGER)
-	@JoinColumn(name = "author_id")
-	private Author author;
 
 	public int getId() {
 		return id;
@@ -96,5 +105,14 @@ public class Book {
 		this.author = author;
 	}
 
+	/*
+	@JsonManagedReference
+	public List<User> getUsersRecordList() {
+		return usersRecordList;
+	}
+
+	public void setUsersRecordList(List<User> usersRecordList) {
+		this.usersRecordList = usersRecordList;
+	}*/
 	
 }
