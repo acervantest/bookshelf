@@ -39,23 +39,5 @@ public class BookRecordId implements Serializable{
 	public void setBookId(int bookId) {
 		this.bookId = bookId;
 	}
-
-	/*
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
- 
-        if (o == null || getClass() != o.getClass())
-            return false;
- 
-        BookRecordId that = (BookRecordId) o;
-        return Objects.equals(userId, that.userId) &&
-               Objects.equals(bookId, that.bookId);
-    }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, bookId);
-    }*/
 	
 }

@@ -30,14 +30,6 @@ public class Book {
 	@JoinColumn(name = "author_id")
 	private Author author;
 	
-	
-	/*@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name="book_record",
-			joinColumns = @JoinColumn(name="book_id"),
-			inverseJoinColumns = @JoinColumn(name="user_id") )
-	private List<User> usersRecordList;*/
-	
 	public Book() { }
 	
 	public Book(String title, String description, int totalPages, int bookRating, Category category, Author author) {
@@ -104,15 +96,5 @@ public class Book {
 	public void setAuthor(Author author) {
 		this.author = author;
 	}
-
-	/*
-	@JsonManagedReference
-	public List<User> getUsersRecordList() {
-		return usersRecordList;
-	}
-
-	public void setUsersRecordList(List<User> usersRecordList) {
-		this.usersRecordList = usersRecordList;
-	}*/
 	
 }

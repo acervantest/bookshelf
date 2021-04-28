@@ -1,6 +1,7 @@
 package com.act.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,6 +38,10 @@ public class BookRecord {
 	
 	@Column(name = "is_current")
 	private boolean readingCurrently;
+	
+	
+	@OneToMany(mappedBy = "bookRecord")
+	private List<PagesRead> pagesRead;
 	
 	public BookRecord() {}
  
@@ -92,6 +98,14 @@ public class BookRecord {
 
 	public void setReadingCurrently(boolean readingCurrently) {
 		this.readingCurrently = readingCurrently;
+	}
+
+	public List<PagesRead> getPagesReads() {
+		return pagesRead;
+	}
+
+	public void setPagesReads(List<PagesRead> pagesRead) {
+		this.pagesRead = pagesRead;
 	}
 	
 }

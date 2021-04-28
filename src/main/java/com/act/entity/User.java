@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,17 +26,7 @@ public class User {
 	
 	private String username;
 	
-	/*@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name="book_record",
-			joinColumns = @JoinColumn(name="user_id"),
-			inverseJoinColumns = @JoinColumn(name="book_id") )
-	private List<Book> booksRecordList;*/
-	
-	@OneToMany(mappedBy = "user",
-			cascade = CascadeType.ALL,
-	        orphanRemoval = true
-			)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<BookRecord> booksRecord;
 	
 	public User() { }
@@ -87,27 +78,4 @@ public class User {
 		this.booksRecord = booksRecord;
 	}
 	
-	/*
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(firstName, user.firstName);
-    }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName);
-    }*/
-
-	
-	/*@JsonBackReference
-	public List<Book> getBooksRecordList() {
-		return booksRecordList;
-	}
-
-	public void setBooksRecordList(List<Book> booksRecordList) {
-		this.booksRecordList = booksRecordList;
-	}*/	
 }

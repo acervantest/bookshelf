@@ -32,10 +32,10 @@ public class Author {
 	@Column(name = "about")
 	private String about;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "author",
 				cascade = {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH })
-	@JsonIgnore
 	private List<Book> books;
 	
 	public Author() { }
