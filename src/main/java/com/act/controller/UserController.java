@@ -2,6 +2,7 @@ package com.act.controller;
 
 import java.util.List;
 
+import com.act.exceptions.NotFoundResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,12 @@ public class UserController {
 	
 	@GetMapping("/users/{userId}")
 	public User findUserById(@PathVariable int userId) {	
-		return userService.getUserById(userId);
+
+		User fetchedUser = userService.getUserById(userId);
+
+		if( fetchedUser == null ) throw new NotFoundResponse(" USER "+ userId +" NOT FOUND ");
+
+		return fetchedUser;
 	}
 	
 	@PostMapping("/users")
