@@ -3,6 +3,7 @@ package com.act.entity;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="BookRecord")
 @Table(name = "book_record")
@@ -39,8 +41,8 @@ public class BookRecord {
 	@Column(name = "is_current")
 	private boolean readingCurrently;
 	
-	
-	@OneToMany(mappedBy = "bookRecord")
+	@JsonManagedReference
+	@OneToMany(mappedBy = "bookRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PagesRead> pagesRead;
 	
 	public BookRecord() {}

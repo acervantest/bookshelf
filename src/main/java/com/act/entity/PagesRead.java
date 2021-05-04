@@ -12,7 +12,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "pages_read")
@@ -27,15 +27,11 @@ public class PagesRead {
 	@Column(name = "num_of_pages")
 	private int pages;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn( 
-				name = "book_id",
-				referencedColumnName = "book_id"),
-		@JoinColumn( 
-				name = "user_id",
-				referencedColumnName = "user_id") })
+		@JoinColumn( name = "book_id", referencedColumnName = "book_id"),
+		@JoinColumn( name = "user_id", referencedColumnName = "user_id") })
 	private BookRecord bookRecord;
 
 	
@@ -70,6 +66,7 @@ public class PagesRead {
 		this.pages = pages;
 	}
 
+	
 	public BookRecord getBookRecord() {
 		return bookRecord;
 	}
