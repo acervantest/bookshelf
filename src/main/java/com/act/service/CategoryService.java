@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.act.dao.CategoryRepository;
 import com.act.entity.Category;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class CategoryService {
 	
 	@Autowired

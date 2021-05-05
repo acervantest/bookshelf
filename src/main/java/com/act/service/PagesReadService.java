@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.act.dao.PagesReadRepository;
 import com.act.entity.PagesRead;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PagesReadService {
 
 	@Autowired

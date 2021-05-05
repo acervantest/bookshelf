@@ -13,7 +13,6 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="BookRecord")
@@ -22,14 +21,13 @@ public class BookRecord {
 
 	@EmbeddedId
 	private BookRecordId id;
-	
+
 	@MapsId("bookId")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Book book;
-	
-	@JsonIgnore
+
 	@MapsId("userId")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private User user;
 	
 	@Column(name = "started_on")
@@ -42,7 +40,7 @@ public class BookRecord {
 	private boolean readingCurrently;
 	
 	@JsonManagedReference
-	@OneToMany(mappedBy = "bookRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "bookRecord", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<PagesRead> pagesRead;
 	
 	public BookRecord() {}
@@ -109,5 +107,4 @@ public class BookRecord {
 	public void setPagesReads(List<PagesRead> pagesRead) {
 		this.pagesRead = pagesRead;
 	}
-	
 }

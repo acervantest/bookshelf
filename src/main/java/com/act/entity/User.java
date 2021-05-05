@@ -1,5 +1,7 @@
 package com.act.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,8 +27,9 @@ public class User {
 	private String lastName;
 	
 	private String username;
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private List<BookRecord> booksRecord;
 	
 	public User() { }

@@ -2,6 +2,8 @@ package com.act.controller;
 
 import java.util.List;
 
+import com.act.entity.dto.UserDTO;
+import com.act.entity.dto.UserDetailDTO;
 import com.act.exceptions.NotFoundResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,12 +26,22 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("/users")
-	public List<User> findAllUsers() {	
+	public List<UserDTO> findAllUsers() {
 		return userService.getAllUsers();	
 	}
 	
 	@GetMapping("/users/{userId}")
-	public User findUserById(@PathVariable int userId) {	
+	public UserDetailDTO findUserDetailById(@PathVariable int userId) {
+
+		UserDetailDTO fetchedUser = userService.getUserDetailById(userId);
+
+		if( fetchedUser == null ) throw new NotFoundResponse(" USER "+ userId +" NOT FOUND ");
+
+		return fetchedUser;
+	}
+
+	@GetMapping("/user/{userId}")
+	public User findUserById(@PathVariable int userId) {
 
 		User fetchedUser = userService.getUserById(userId);
 

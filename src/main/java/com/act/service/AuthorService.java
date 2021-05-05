@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.act.dao.AuthorRepository;
 import com.act.entity.Author;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class AuthorService {
 
 	@Autowired

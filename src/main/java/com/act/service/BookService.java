@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.act.dao.BookRepository;
 import com.act.entity.Book;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class BookService {
 
 	@Autowired
