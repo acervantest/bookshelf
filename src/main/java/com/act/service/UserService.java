@@ -1,9 +1,9 @@
 package com.act.service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import com.act.entity.Book;
+import com.act.entity.BookRecord;
 import com.act.entity.dto.UserDTO;
 import com.act.entity.dto.UserDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class UserService {
 	
 	
 	public List<UserDTO> getAllUsers(){
-		
+
 		Optional<List<UserDTO>> users = userRepository.fetchUsersDTO();
 
 		List<UserDTO> usersDTO = users.get();
@@ -38,15 +38,21 @@ public class UserService {
 
 	public UserDetailDTO getUserDetailById(int userId) {
 
-		Optional<User> userInstance = userRepository.fetchFullUser(userId);
-
+		Optional<User> userInstance = userRepository.findById(userId);
 		User user = userInstance.get();
+		Set<BookRecord> bookRecords = user.getBookRecords();
+
+		Set<Book> userBooks = new HashSet<>();
+
+		for(BookRecord record: bookRecords){
+			userBooks.add(record.getBook());
+		}
 
 		UserDetailDTO userDetailDTO = new UserDetailDTO(user.getId(),
 				user.getFirstName(),
 				user.getLastName(),
-				user.getUsername(),
-				user.getBooksRecord() );
+				user.getUsername(), userBooks);
+
 		return userDetailDTO;
 	}
 	

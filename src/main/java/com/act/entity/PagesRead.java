@@ -1,10 +1,12 @@
 package com.act.entity;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pages_read")
@@ -19,12 +21,9 @@ public class PagesRead {
 	@Column(name = "num_of_pages")
 	private int pages;
 
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn( name = "book_id", referencedColumnName = "book_id"),
-		@JoinColumn( name = "user_id", referencedColumnName = "user_id") })
-	private BookRecord bookRecord;
+	@JsonIgnore
+	@OneToMany(mappedBy = "book")
+	private Set<BookRecord> bookRecords = new HashSet<>();
 
 	public PagesRead() {}
 			
@@ -57,13 +56,11 @@ public class PagesRead {
 		this.pages = pages;
 	}
 
-	
-	public BookRecord getBookRecord() {
-		return bookRecord;
+	public Set<BookRecord> getBookRecords() {
+		return bookRecords;
 	}
 
-	public void setBookRecord(BookRecord bookRecord) {
-		this.bookRecord = bookRecord;
+	public void setBookRecords(Set<BookRecord> bookRecords) {
+		this.bookRecords = bookRecords;
 	}
-	
 }

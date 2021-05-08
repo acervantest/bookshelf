@@ -1,7 +1,10 @@
 package com.act.entity;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -29,6 +32,10 @@ public class Book {
 	@ManyToOne(cascade = { CascadeType.MERGE }, fetch=FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private Author author;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "book")
+	private Set<BookRecord> bookRecords = new HashSet<>();
 	
 	public Book() { }
 	
@@ -96,5 +103,12 @@ public class Book {
 	public void setAuthor(Author author) {
 		this.author = author;
 	}
-	
+
+	public Set<BookRecord> getBookRecords() {
+		return bookRecords;
+	}
+
+	public void setBookRecords(Set<BookRecord> bookRecords) {
+		this.bookRecords = bookRecords;
+	}
 }

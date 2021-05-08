@@ -2,11 +2,10 @@ package com.act.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.List;
-import javax.persistence.CascadeType;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,16 +28,15 @@ public class User {
 	private String username;
 
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-	private List<BookRecord> booksRecord;
+	@OneToMany(mappedBy = "book")
+	private Set<BookRecord> bookRecords = new HashSet<>();
 	
 	public User() { }
 
-	public User(String firstName, String lastName, String username, List<BookRecord> booksRecord) {
+	public User(String firstName, String lastName, String username) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
-		this.booksRecord = booksRecord;
 	}
 
 	public int getId() {
@@ -73,12 +71,11 @@ public class User {
 		this.username = username;
 	}
 
-	public List<BookRecord> getBooksRecord() {
-		return booksRecord;
+	public Set<BookRecord> getBookRecords() {
+		return bookRecords;
 	}
 
-	public void setBooksRecord(List<BookRecord> booksRecord) {
-		this.booksRecord = booksRecord;
+	public void setBookRecords(Set<BookRecord> bookRecords) {
+		this.bookRecords = bookRecords;
 	}
-	
 }
