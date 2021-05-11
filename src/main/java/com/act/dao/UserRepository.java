@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
     @Query("SELECT new com.act.entity.dto.UserDTO(" +
-            "u.id, u.firstName, u.lastName, u.username)" +
+            "u.id, u.firstName, u.lastName, u.userName)" +
             " FROM User u")
     Optional<List<UserDTO>> fetchUsersDTO(); // FETCH A LIST OF USER-DTO
 }

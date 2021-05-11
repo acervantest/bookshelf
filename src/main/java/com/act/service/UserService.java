@@ -24,10 +24,8 @@ public class UserService {
 	public List<UserDTO> getAllUsers(){
 
 		Optional<List<UserDTO>> users = userRepository.fetchUsersDTO();
-
-		List<UserDTO> usersDTO = users.get();
 	
-		return usersDTO == null ? Collections.emptyList() : usersDTO;
+		return users.get() == null ? Collections.emptyList() : users.get();
 	}
 
 	public User getUserById(int userId){
@@ -51,7 +49,7 @@ public class UserService {
 		UserDetailDTO userDetailDTO = new UserDetailDTO(user.getId(),
 				user.getFirstName(),
 				user.getLastName(),
-				user.getUsername(), userBooks);
+				user.getUserName(), userBooks);
 
 		return userDetailDTO;
 	}

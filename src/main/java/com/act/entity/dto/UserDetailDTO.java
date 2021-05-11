@@ -8,16 +8,16 @@ public class UserDetailDTO {
     private int id;
     private String firstName;
     private String lastName;
-    private String username;
+    private String userName;
     private Set<Book> books;
 
     public UserDetailDTO() {}
 
-    public UserDetailDTO(int id, String firstName, String lastName, String username, Set<Book> books) {
+    public UserDetailDTO(int id, String firstName, String lastName, String userName, Set<Book> books) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
+        this.userName = userName;
         this.books = books;
     }
 
@@ -45,12 +45,12 @@ public class UserDetailDTO {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Set<Book> getBooks() {

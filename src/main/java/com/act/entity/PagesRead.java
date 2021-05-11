@@ -22,7 +22,7 @@ public class PagesRead {
 	private int pages;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "pages")
 	private Set<BookRecord> bookRecords = new HashSet<>();
 
 	public PagesRead() {}

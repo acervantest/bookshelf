@@ -24,19 +24,20 @@ public class User {
 	
 	@Column(name = "last_name")
 	private String lastName;
-	
-	private String username;
+
+	@Column(name = "username")
+	private String userName;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "user")
 	private Set<BookRecord> bookRecords = new HashSet<>();
 	
 	public User() { }
 
-	public User(String firstName, String lastName, String username) {
+	public User(String firstName, String lastName, String userName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.username = username;
+		this.userName = userName;
 	}
 
 	public int getId() {
@@ -63,12 +64,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Set<BookRecord> getBookRecords() {
