@@ -31,6 +31,18 @@ public class PagesReadService {
 		
 		return pagesInstance.orElse(null);
 	}
+
+	public List<PagesRead> getPagesReadByUser(int bookId, int userId){
+
+		Optional<List<PagesRead>> pagesReadOptional = pagesReadRepository.fetchPagesReadByBookAndUser(bookId, userId);
+
+		List<PagesRead> pagesReadInstance = null;
+
+		if(pagesReadOptional.isPresent()){
+			pagesReadInstance = pagesReadOptional.get();
+		}
+		return pagesReadInstance;
+	}
 	
 	public PagesRead saveNewPagesRead(PagesRead pagesRead) {
 		pagesRead.setId(0);
