@@ -2,6 +2,7 @@ package com.act.controller;
 
 import java.util.List;
 
+import com.act.entity.dto.BookDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class BookController {
 	}
 
 	@PostMapping("/books")
-	public Book addBook(@RequestBody Book book) {
+	public BookDTO addBook(@RequestBody Book book) {
 		return bookService.saveNewBook(book);
 	}
 	

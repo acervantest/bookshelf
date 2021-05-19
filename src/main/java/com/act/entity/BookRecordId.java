@@ -22,6 +22,12 @@ public class BookRecordId implements Serializable {
 	
 	public BookRecordId() {}
 
+	public BookRecordId(int userId, int bookId, int pagesId) {
+		this.userId = userId;
+		this.bookId = bookId;
+		this.pagesId = pagesId;
+	}
+
 	public int getUserId() {
 		return userId;
 	}

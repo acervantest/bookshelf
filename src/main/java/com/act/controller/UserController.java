@@ -2,6 +2,7 @@ package com.act.controller;
 
 import java.util.List;
 
+import com.act.entity.Book;
 import com.act.entity.dto.UserDTO;
 import com.act.entity.dto.UserDetailDTO;
 import com.act.exceptions.NotFoundResponse;
@@ -47,6 +48,11 @@ public class UserController {
 	@PostMapping("/users")
 	public User addUser(@RequestBody User user) {
 		return userService.saveNewUser(user);
+	}
+
+	@PostMapping("/users/{userId}")
+	public UserDetailDTO addBook(@PathVariable int userId, @RequestBody Book book) {
+		return userService.addBook(userId, book);
 	}
 	
 	@PutMapping("/users")

@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.act.entity.Author;
+import com.act.entity.dto.AuthorDTO;
+import com.act.entity.dto.BookDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +36,30 @@ public class BookService {
 		return bookInstance.orElse(null);
 	}
 	
-	public Book saveNewBook(Book book) {
+	public BookDTO saveNewBook(Book book) {
 		book.setId(0);
-		return bookRepository.save(book);
+		Book bookInstance = bookRepository.save(book);
+
+		Author author = bookInstance.getAuthor();
+		AuthorDTO authorDto = new AuthorDTO(
+				author.getId(),
+				author.getFirstName(),
+				author.getMiddleName(),
+				author.getLastName(),
+				author.getAbout()
+			);
+
+		BookDTO bookDto = new BookDTO(
+				bookInstance.getId(),
+				bookInstance.getTitle(),
+				bookInstance.getDescription(),
+				bookInstance.getTotalPages(),
+				bookInstance.getBookRating(),
+				bookInstance.getCategory().getCategoryName(),
+				authorDto
+		);
+
+		return bookDto;
 	}
 	
 	public Book updateBook(Book book) {

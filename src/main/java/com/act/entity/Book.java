@@ -25,11 +25,11 @@ public class Book {
 	@Column(name = "book_rating")
 	private int bookRating;
 	
-	@OneToOne(cascade={ CascadeType.MERGE }, fetch=FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE }, fetch=FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private Author author;
 
