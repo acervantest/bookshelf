@@ -6,6 +6,8 @@ import com.act.dao.BookRecordRepository;
 import com.act.dao.BookRepository;
 import com.act.dao.PagesReadRepository;
 import com.act.entity.*;
+import com.act.entity.dto.AuthorDTO;
+import com.act.entity.dto.BookDTO;
 import com.act.entity.dto.UserDTO;
 import com.act.entity.dto.UserDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,18 +50,38 @@ public class UserService {
 
 		Optional<User> userInstance = userRepository.findById(userId);
 		User user = userInstance.get();
-		Set<BookRecord> bookRecords = user.getBookRecords();
 
-		Set<Book> userBooks = new HashSet<>();
+		Optional<List<Book>> optionalUserBooks = bookRepository.fetchBooksDtoByUserId(userId);
 
-		for(BookRecord record: bookRecords){
-			userBooks.add(record.getBook());
+		List<Book> userBooks = optionalUserBooks.get();
+
+		List<BookDTO> userBooksDTO = new ArrayList<>();
+
+		for(Book book: userBooks){
+			AuthorDTO author = new AuthorDTO(
+					book.getAuthor().getId(),
+					book.getAuthor().getFirstName(),
+					book.getAuthor().getMiddleName(),
+					book.getAuthor().getLastName(),
+					book.getAuthor().getAbout());
+
+			userBooksDTO.add(
+					new BookDTO(
+							book.getId(),
+							book.getTitle(),
+							book.getDescription(),
+							book.getTotalPages(),
+							book.getBookRating(),
+							book.getCategory().getCategoryName(),
+							author)
+			);
 		}
 
 		UserDetailDTO userDetailDTO = new UserDetailDTO(user.getId(),
-				user.getFirstName(),
-				user.getLastName(),
-				user.getUserName(), userBooks);
+					user.getFirstName(),
+					user.getLastName(),
+					user.getUserName(),
+					userBooksDTO );
 
 		return userDetailDTO;
 	}
@@ -79,8 +101,7 @@ public class UserService {
 			if (!(book == null)) {
 				b = bookRepository.save(book);
 
-				Date date = new Date();
-				PagesRead pr = new PagesRead(date, 0);
+				PagesRead pr = new PagesRead(new Date(), 0);
 				pr = pagesReadRepository.save(pr);
 
 				BookRecordId brId = new BookRecordId(user.getId(), book.getId(), pr.getId());

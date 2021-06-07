@@ -1,7 +1,6 @@
 package com.act.entity.dto;
 
-import com.act.entity.Book;
-import java.util.Set;
+import java.util.List;
 
 public class UserDetailDTO {
 
@@ -9,11 +8,11 @@ public class UserDetailDTO {
     private String firstName;
     private String lastName;
     private String userName;
-    private Set<Book> books;
+    private List<BookDTO> books;
 
     public UserDetailDTO() {}
 
-    public UserDetailDTO(int id, String firstName, String lastName, String userName, Set<Book> books) {
+    public UserDetailDTO(int id, String firstName, String lastName, String userName, List<BookDTO> books) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,11 +52,11 @@ public class UserDetailDTO {
         this.userName = userName;
     }
 
-    public Set<Book> getBooks() {
+    public List<BookDTO> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(List<BookDTO> books) {
         this.books = books;
     }
 }

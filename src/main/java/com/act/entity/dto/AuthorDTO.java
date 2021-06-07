@@ -1,60 +1,60 @@
 package com.act.entity.dto;
 
-public class AuthorDTO {
+public class AuthorDTO{
 
-    private int authorId;
-    private String authorFirstName;
-    private String authorMiddleName;
-    private String authorLastName;
-    private String authorAbout;
+    private int id;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String about;
 
     public AuthorDTO() { }
 
-    public AuthorDTO(int authorId, String authorFirstName, String authorMiddleName, String authorLastName, String authorAbout) {
-        this.authorId = authorId;
-        this.authorFirstName = authorFirstName;
-        this.authorMiddleName = authorMiddleName;
-        this.authorLastName = authorLastName;
-        this.authorAbout = authorAbout;
+    public AuthorDTO(int id, String firstName, String middleName, String lastName, String about) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.about = about;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public int getId() {
+        return id;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getAuthorFirstName() {
-        return authorFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAuthorFirstName(String authorFirstName) {
-        this.authorFirstName = authorFirstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getAuthorMiddleName() {
-        return authorMiddleName;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setAuthorMiddleName(String authorMiddleName) {
-        this.authorMiddleName = authorMiddleName;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getAuthorLastName() {
-        return authorLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getAuthorAbout() {
-        return authorAbout;
+    public String getAbout() {
+        return about;
     }
 
-    public void setAuthorAbout(String authorAbout) {
-        this.authorAbout = authorAbout;
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

@@ -32,9 +32,9 @@ public class PagesReadService {
 		return pagesInstance.orElse(null);
 	}
 
-	public List<PagesRead> getPagesReadByUser(int bookId, int userId){
+	public List<PagesRead> getPagesReadByUser(int userId, int bookId){
 
-		Optional<List<PagesRead>> pagesReadOptional = pagesReadRepository.fetchPagesReadByBookAndUser(bookId, userId);
+		Optional<List<PagesRead>> pagesReadOptional = pagesReadRepository.fetchPagesReadByBookAndUser(userId, bookId);
 
 		List<PagesRead> pagesReadInstance = null;
 

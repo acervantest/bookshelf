@@ -1,80 +1,80 @@
 package com.act.entity.dto;
 
-public class BookDTO {
+public class BookDTO{
 
-    private int bookId;
-    private String bookTitle;
-    private String bookDescription;
-    private int bookPages;
-    private int bookRating;
-    private String bookCategory;
-    private AuthorDTO bookAuthor;
+    private int id;
+    private String  title;
+    private String description;
+    private int pages;
+    private int rating;
+    private String category;
+    private AuthorDTO author;
 
     public BookDTO() { }
 
-    public BookDTO(int bookId, String bookTitle, String bookDescription, int bookPages, int bookRating, String bookCategory, AuthorDTO bookAuthor) {
-        this.bookId = bookId;
-        this.bookTitle = bookTitle;
-        this.bookDescription = bookDescription;
-        this.bookPages = bookPages;
-        this.bookRating = bookRating;
-        this.bookCategory = bookCategory;
-        this.bookAuthor = bookAuthor;
+    public BookDTO(int id, String title, String description, int pages, int rating, String category, AuthorDTO author) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.pages = pages;
+        this.rating = rating;
+        this.category = category;
+        this.author = author;
     }
 
-    public int getBookId() {
-        return bookId;
+    public int getId() {
+        return id;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getBookTitle() {
-        return bookTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getBookDescription() {
-        return bookDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBookDescription(String bookDescription) {
-        this.bookDescription = bookDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getBookPages() {
-        return bookPages;
+    public int getPages() {
+        return pages;
     }
 
-    public void setBookPages(int bookPages) {
-        this.bookPages = bookPages;
+    public void setPages(int pages) {
+        this.pages = pages;
     }
 
-    public int getBookRating() {
-        return bookRating;
+    public int getRating() {
+        return rating;
     }
 
-    public void setBookRating(int bookRating) {
-        this.bookRating = bookRating;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    public String getBookCategory() {
-        return bookCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setBookCategory(String bookCategory) {
-        this.bookCategory = bookCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public AuthorDTO getBookAuthor() {
-        return bookAuthor;
+    public AuthorDTO getAuthor() {
+        return author;
     }
 
-    public void setBookAuthor(AuthorDTO bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public void setAuthor(AuthorDTO author) {
+        this.author = author;
     }
 }

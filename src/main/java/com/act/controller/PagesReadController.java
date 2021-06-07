@@ -28,7 +28,7 @@ public class PagesReadController {
 
 	@GetMapping("/pages/{userId}/{bookId}")
 	public List<PagesRead> findPagesReadByUser(@PathVariable int userId, @PathVariable int bookId) {
-		return pagesReadService.getPagesReadByUser(bookId, userId);
+		return pagesReadService.getPagesReadByUser(userId, bookId);
 	}
 	
 	@PostMapping("/pages")

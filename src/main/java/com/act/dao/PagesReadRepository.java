@@ -10,10 +10,10 @@ import java.util.Optional;
 
 public interface PagesReadRepository extends JpaRepository<PagesRead, Integer>{
 
-    @Query(value = "SELECT pr.*" +
-            " FROM pages_read pr" +
-            " JOIN book_record br ON br.pages_id = pr.id" +
-            " WHERE br.book_id =?1 and br.user_id =?2" +
-            " ORDER BY day DESC", nativeQuery = true)
-    Optional<List<PagesRead>> fetchPagesReadByBookAndUser(int bookId, int userId);
+    @Query(value = "SELECT pr.* " +
+            "FROM pages_read pr " +
+            "JOIN book_record br ON br.pages_id = pr.id " +
+            "WHERE br.user_id =?1 and br.book_id =?2 " +
+            "ORDER BY day DESC", nativeQuery = true)
+    Optional<List<PagesRead>> fetchPagesReadByBookAndUser(int userId, int bookId);
 }
