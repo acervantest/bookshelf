@@ -1,10 +1,7 @@
 package com.act.entity;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity(name="BookRecord")
 @Table(name = "book_record")
@@ -13,15 +10,18 @@ public class BookRecord {
 	@EmbeddedId
 	private BookRecordId id;
 
-	@ManyToOne
+	@NotNull(message = "book for book-record may not be null")
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@MapsId("bookId")
 	private Book book;
 
+	@NotNull(message = "user for book-record may not be null")
 	@ManyToOne
 	@MapsId("userId")
 	private User user;
 
-	@ManyToOne
+	@NotNull(message = "pages for book-record may not be null")
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@MapsId("pagesId")
 	private PagesRead pages;
 

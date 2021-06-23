@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.act.exceptions.NotFoundException;
+import com.act.validators.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class PagesReadService {
 
 	@Autowired
 	private PagesReadRepository pagesReadRepository;
+
+	@Autowired
+	private ValidatorService validatorService;
 	
 	public List<PagesRead> getAllPagesRead(){
 		
@@ -28,48 +33,41 @@ public class PagesReadService {
 	public PagesRead getPagesReadById(int pagesReadId) {
 		
 		Optional<PagesRead> pagesInstance = pagesReadRepository.findById(pagesReadId);
+
+		if(!pagesInstance.isPresent()) throw new NotFoundException(" PAGES READ id [ "+ pagesReadId +" ] NOT FOUND");
 		
-		return pagesInstance.orElse(null);
+		return pagesInstance.get();
 	}
 
 	public List<PagesRead> getPagesReadByUser(int userId, int bookId){
 
 		Optional<List<PagesRead>> pagesReadOptional = pagesReadRepository.fetchPagesReadByBookAndUser(userId, bookId);
 
-		List<PagesRead> pagesReadInstance = null;
-
-		if(pagesReadOptional.isPresent()){
-			pagesReadInstance = pagesReadOptional.get();
-		}
-		return pagesReadInstance;
+		return pagesReadOptional.isPresent() ? pagesReadOptional.get() : null;
 	}
 	
 	public PagesRead saveNewPagesRead(PagesRead pagesRead) {
+
+		validatorService.validate(pagesRead, PagesRead.class);
+
 		pagesRead.setId(0);
+
 		return pagesReadRepository.save(pagesRead);
 	}
 	
 	public PagesRead updatePagesRead(PagesRead pagesRead) {
+
+		validatorService.validate(pagesRead, PagesRead.class);
+
 		return pagesReadRepository.save(pagesRead);
 	}
-	
-	private String ifPagesReadDelete(PagesRead pagesRead) {
-		String response = "Pages Read ";
-		
-		if(pagesRead == null) {
-			response += "Not Found!!!";
-		} else {
-			response += " with id: " + pagesRead.getId();
-			pagesReadRepository.deleteById(pagesRead.getId());
-			response += " Deleted...";
-		}
-		return response;
+
+	public String deletePagesReadById(int pagesReadId){
+
+		PagesRead pagesReadEntity = getPagesReadById(pagesReadId);
+
+		pagesReadRepository.delete(pagesReadEntity);
+
+		return "Pages Read with id [ " + pagesReadId + " ] DELETED...";
 	}
-	
-	public String deletePagesRead(int pagesReadId) {
-			
-		Optional<PagesRead> pagesReadInstance = pagesReadRepository.findById(pagesReadId);
-		
-		return this.ifPagesReadDelete(pagesReadInstance.orElse(null));
-	}	
 }

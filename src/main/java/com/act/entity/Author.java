@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,16 +20,19 @@ public class Author {
 	@Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private int id;
-	
+
+	@NotBlank(message="author firstname may not be null")
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "middle_name")
 	private String middleName;
-	
+
+	@NotBlank(message="author lastname may not be null")
 	@Column(name = "last_name")
 	private String lastName;
-	
+
+	@NotBlank(message="author about may not be null")
 	@Column(name = "about")
 	private String about;
 	

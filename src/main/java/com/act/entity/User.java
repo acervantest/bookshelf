@@ -4,12 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 
 @Entity
@@ -18,18 +14,21 @@ public class User {
 	@Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private int id;
-	
+
+	@NotBlank(message="user's first name may not be null")
 	@Column(name = "first_name")
 	private String firstName;
-	
+
+	@NotBlank(message="user's last name may not be null")
 	@Column(name = "last_name")
 	private String lastName;
 
+	@NotBlank(message="user's username may not be null")
 	@Column(name = "username")
 	private String userName;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "user")
+	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "user")
 	private Set<BookRecord> bookRecords = new HashSet<>();
 	
 	public User() { }

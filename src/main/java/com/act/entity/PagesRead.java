@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "pages_read")
@@ -15,10 +17,12 @@ public class PagesRead {
 	@Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private int id;
-	
+
+	@NotNull(message = "pages read day may not be null")
 	private Date day;
 
 	@Column(name = "num_of_pages")
+	@Range(min = 1, message="pages read may not be null")
 	private int pages;
 
 	@JsonIgnore

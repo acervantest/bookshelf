@@ -4,9 +4,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.act.dao.BookRecordRepository;
 import com.act.entity.Author;
+import com.act.entity.BookRecord;
 import com.act.entity.dto.AuthorDTO;
 import com.act.entity.dto.BookDTO;
+import com.act.exceptions.NotFoundException;
+import com.act.mappers.BookMapper;
+import com.act.validators.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +25,17 @@ public class BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
-	
-	
+
+	@Autowired
+	private BookRecordRepository bookRecordRepository;
+
+	@Autowired
+	private BookMapper bookMapper;
+
+	@Autowired
+	private ValidatorService validatorService;
+
+
 	public List<Book> getAllBooks(){
 		
 		List<Book> books = bookRepository.findAll();
@@ -32,57 +46,59 @@ public class BookService {
 	public Book getBookById(int bookId) {
 		
 		Optional<Book> bookInstance = bookRepository.findById(bookId);
-		
-		return bookInstance.orElse(null);
+
+		if(!bookInstance.isPresent()) throw new NotFoundException("BOOK [ "+ bookId +" ] NOT FOUND");
+
+		return bookInstance.get();
 	}
-	
-	public BookDTO saveNewBook(Book book) {
+
+	public List<Book> getBooksByUserId(int userId){
+
+		Optional<List<Book>> optionalUserBooks = bookRepository.fetchBooksDtoByUserId(userId);
+
+		return optionalUserBooks.orElse(null);
+	}
+
+	public Book saveBook(Book book){
+
+		validatorService.validate(book, Book.class);
+
 		book.setId(0);
-		Book bookInstance = bookRepository.save(book);
 
-		Author author = bookInstance.getAuthor();
-		AuthorDTO authorDto = new AuthorDTO(
-				author.getId(),
-				author.getFirstName(),
-				author.getMiddleName(),
-				author.getLastName(),
-				author.getAbout()
-			);
-
-		BookDTO bookDto = new BookDTO(
-				bookInstance.getId(),
-				bookInstance.getTitle(),
-				bookInstance.getDescription(),
-				bookInstance.getTotalPages(),
-				bookInstance.getBookRating(),
-				bookInstance.getCategory().getCategoryName(),
-				authorDto
-		);
-
-		return bookDto;
-	}
-	
-	public Book updateBook(Book book) {
 		return bookRepository.save(book);
 	}
 	
-	private String ifBookDelete(Book book) {
-		String response = "Book ";
-		
-		if(book == null) {
-			response += "Not Found!!!";
-		} else {
-			response += " with id: " + book.getId();
-			bookRepository.deleteById(book.getId());
-			response += " Deleted...";
-		}
-		return response;
+	public BookDTO saveNewBook(Book book) {
+
+		validatorService.validate(book, Book.class);
+
+		book.setId(0);
+
+		Book bookInstance = bookRepository.save(book);
+
+		return bookMapper.convertToDto(bookInstance);
 	}
 	
-	public String deleteBook(int bookId) {
-			
-		Optional<Book> bookInstance = bookRepository.findById(bookId);
-		
-		return this.ifBookDelete(bookInstance.orElse(null));
+	public Book updateBook(Book book) {
+
+		validatorService.validate(book, Book.class);
+
+		return bookRepository.save(book);
+	}
+
+	public String deleteBookById(int bookId) {
+
+		Book bookInstance = getBookById(bookId);
+
+		bookRepository.delete(bookInstance);
+
+		return "Book with id [ " + bookId + " ] DELETED...";
+	}
+
+	public BookRecord saveBookRecord(BookRecord bookRecord){
+
+		validatorService.validate(bookRecord, BookRecord.class);
+
+		return bookRecordRepository.save(bookRecord);
 	}
 }
