@@ -43,6 +43,6 @@ public class PagesReadController {
 	
 	@DeleteMapping("/pages/{pagesReadId}")
 	public String deletePagesRead(@PathVariable int pagesReadId) {		
-		return pagesReadService.deletePagesRead(pagesReadId);
+		return pagesReadService.deletePagesReadById(pagesReadId);
 	}
 }

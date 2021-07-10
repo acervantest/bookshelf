@@ -5,9 +5,12 @@ import com.act.entity.Book;
 import com.act.entity.dto.AuthorDTO;
 import com.act.entity.dto.BookDTO;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookMapper {
 
     public List<BookDTO> convertToDto(List<Book> books){

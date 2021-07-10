@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.act.dao.BookRecordRepository;
-import com.act.entity.Author;
 import com.act.entity.BookRecord;
-import com.act.entity.dto.AuthorDTO;
 import com.act.entity.dto.BookDTO;
 import com.act.exceptions.NotFoundException;
 import com.act.mappers.BookMapper;
