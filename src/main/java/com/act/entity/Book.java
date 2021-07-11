@@ -118,4 +118,18 @@ public class Book {
 	public void setBookRecords(Set<BookRecord> bookRecords) {
 		this.bookRecords = bookRecords;
 	}
+
+	@Override
+	public String toString() {
+		return "Book{" +
+				"id=" + id +
+				", title='" + title + '\'' +
+				", description='" + description + '\'' +
+				", totalPages=" + totalPages +
+				", bookRating=" + bookRating +
+				", category=" + category.toString() +
+				", author=" + author.toString() +
+				", bookRecords=" + bookRecords +
+				'}';
+	}
 }
